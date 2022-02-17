@@ -18,7 +18,7 @@ class Example(QWidget):
     def initUI(self):
 
         self.setGeometry(300, 300, 280, 270)
-        self.setWindowTitle('Pen styles')
+        self.setWindowTitle('gravity test')
         self.show()
 
 
@@ -35,28 +35,16 @@ class Example(QWidget):
         pen = QPen(Qt.black, 2, Qt.SolidLine)
 
         qp.setPen(pen)
-        qp.drawLine(20, 40, 250, 40)
-
-        pen.setStyle(Qt.DashLine)
+        qp.drawLine(20, 40, 40, 40)
+        
         qp.setPen(pen)
-        qp.drawLine(20, 80, 250, 80)
-
-        pen.setStyle(Qt.DashDotLine)
+        qp.drawLine(40, 20, 40, 40)
+        
         qp.setPen(pen)
-        qp.drawLine(20, 120, 250, 120)
-
-        pen.setStyle(Qt.DotLine)
+        qp.drawLine(20, 20, 20, 40)
+        
         qp.setPen(pen)
-        qp.drawLine(20, 160, 250, 160)
-
-        pen.setStyle(Qt.DashDotDotLine)
-        qp.setPen(pen)
-        qp.drawLine(20, 200, 250, 200)
-
-        pen.setStyle(Qt.CustomDashLine)
-        pen.setDashPattern([1, 4, 5, 4])
-        qp.setPen(pen)
-        qp.drawLine(20, 240, 250, 240)
+        qp.drawLine(20, 20, 40, 20)
 
 
 if __name__ == '__main__':
