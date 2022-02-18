@@ -12,7 +12,7 @@ from array import *
 class Example(QWidget):
 
     initialCoords = array('i', [20, 20]) #initial coordinates of a square
-    squareSize = 20 #size of a square
+    squareSize = 10 #size of a square
 
     def __init__(self):
         super().__init__()
@@ -55,6 +55,85 @@ class Example(QWidget):
         
         qp.setPen(pen)
         qp.drawLine(x + self.squareSize, y, x + self.squareSize, y + self.squareSize)
+
+class gravityTetris(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+
+    def initUI(self):
+
+        self.tboard = tetrisBoard(self)
+        self.setCentralWidget(self.tboard)
+
+        self.statusbar = self.statusBar()
+        self.tboard.msg2Statusbar[str].connect(self.statusbar.showMessage)
+
+        self.tboard.start()
+
+        self.resize(180, 380)
+        self.center()
+        self.setWindowTitle('Tetris')
+        self.show()
+
+
+    def center(self):
+
+        screen = QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width()-size.width())/2,
+            (screen.height()-size.height())/2)
+
+class tetrisBoard(QFrame):
+
+msg2Statusbar = pyqtSignal(str)
+
+    BoardWidth = 10
+    BoardHeight = 22
+    Speed = 300
+
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        self.initBoard()
+
+
+    def initBoard(self):
+
+        self.timer = QBasicTimer()
+        self.isWaitingAfterLine = False
+
+        self.curX = 0
+        self.curY = 0
+        self.numLinesRemoved = 0
+        self.board = []
+
+        self.setFocusPolicy(Qt.StrongFocus)
+        self.isStarted = False
+        self.isPaused = False
+        self.clearBoard()
+        
+    def DrawCube(self):
+        x = self.initialCoords[0]
+        y = self.initialCoords[1]
+        
+        pen = QPen(Qt.black, 2, Qt.SolidLine)
+
+        qp.setPen(pen)
+        qp.drawLine(x, y, x + self.squareSize, y)
+        
+        qp.setPen(pen)
+        qp.drawLine(x, y, x, y + self.squareSize)
+        
+        qp.setPen(pen)
+        qp.drawLine(x, y + self.squareSize, x + self.squareSize, y + self.squareSize)
+        
+        qp.setPen(pen)
+        qp.drawLine(x + self.squareSize, y, x + self.squareSize, y + self.squareSize)
+        
 
 
 if __name__ == '__main__':
