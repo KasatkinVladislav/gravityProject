@@ -157,8 +157,8 @@ from array import *
 class tetrisBoard(QFrame):
     msg2Statusbar = pyqtSignal(str)
 
-    BoardWidth = 20 #ширина в 20 маленьких клеточек
-    BoardHeight = 44 #высота в 44 маленькие клеточки
+    boardWidth = 20 #ширина в 20 маленьких клеточек
+    boardHeight = 44 #высота в 44 маленькие клеточки
     Speed = 300
     theBoard = [] #пустой массив, в котором хранятся занятые значения
 
@@ -176,7 +176,8 @@ class tetrisBoard(QFrame):
         self.curX = 0
         self.curY = 0
         self.numLinesRemoved = 0
-        self.theBoard = []
+        for i in range(self.boardWidth):
+            self.theBoard.append([0] * self.boardHeight)
 
         self.setFocusPolicy(Qt.StrongFocus)
         self.isStarted = False
